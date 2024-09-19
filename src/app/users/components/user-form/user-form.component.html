@@ -1,0 +1,407 @@
+<form [formGroup]="clientForm">
+  <div class="form-container">
+    <div class="upload-container">
+      <label>
+        ატვირთე ფოტო
+        <input type="file" (change)="onFileChange($event)" accept="image/*" />
+        <mat-error>
+          @if (
+            clientForm.get("photoUrl")?.errors?.["required"] && isSubmitted()
+          ) {
+            <div>სავალდებულო ველი.</div>
+          }
+        </mat-error>
+      </label>
+      @if (url() || clientForm.get("photoUrl")?.value) {
+        <img
+          [src]="url() || clientForm.get('photoUrl')?.value"
+          alt="Selected Image"
+          style="max-width: 200px"
+          height="200px"
+        />
+      }
+    </div>
+
+    <div class="user-form">
+      <mat-form-field>
+        <mat-label>კლიენტის ნომერი</mat-label>
+        <input formControlName="clientNumber" matInput />
+        @if (
+          clientForm.get("clientNumber")?.invalid &&
+          (clientForm.get("clientNumber")?.touched || isSubmitted())
+        ) {
+          <mat-error>
+            @if (clientForm.get("clientNumber")?.errors?.["required"]) {
+              <div>სავალდებულო ველი.</div>
+            }
+            @if (clientForm.get("clientNumber")?.errors?.["pattern"]) {
+              <div>კლიენტის ნომერი უნდა შედგებოდეს ციფრებისგან.</div>
+            }
+            @if (clientForm.get("clientNumber")?.errors?.["exists"]) {
+              <div>ასეთი მომხმარებელი არსებობს.</div>
+            }
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>პირადი ნომერი</mat-label>
+        <input formControlName="personalNumber" matInput />
+        @if (
+          clientForm.get("personalNumber")?.invalid &&
+          (clientForm.get("personalNumber")?.touched || isSubmitted())
+        ) {
+          <mat-error>
+            @if (clientForm.get("personalNumber")?.errors?.["required"]) {
+              <div>სავალდებულო ველი.</div>
+            }
+            @if (clientForm.get("personalNumber")?.errors?.["pattern"]) {
+              <div>პირადი ნომერი უნდა შედგებოდეს 11 რიცხვისგან.</div>
+            }
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>გვარი</mat-label>
+        <input formControlName="surname" matInput />
+        @if (
+          clientForm.get("surname")?.invalid &&
+          (clientForm.get("surname")?.touched || isSubmitted())
+        ) {
+          <mat-error>
+            @if (
+              clientForm.get("surname")?.invalid &&
+              (clientForm.get("surname")?.touched || isSubmitted())
+            ) {
+              <div class="error-message">
+                @if (clientForm.get("surname")?.errors?.["required"]) {
+                  <div>სავალდებულო ველი.</div>
+                }
+                @if (clientForm.get("surname")?.errors?.["lettersNotAllowed"]) {
+                  <div>გვარი უნდა შეიცავდეს, ქართულ ან ლათინურ ასეოებს.</div>
+                }
+                @if (
+                  clientForm.get("surname")?.errors?.["minlength"] ||
+                  clientForm.get("surname")?.errors?.["maxlength"]
+                ) {
+                  <div>მინ 2 მაქს 50 ასო</div>
+                }
+              </div>
+            }
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>სახელი</mat-label>
+        <input formControlName="name" matInput />
+        @if (
+          clientForm.get("name")?.invalid &&
+          (clientForm.get("name")?.touched || isSubmitted())
+        ) {
+          <mat-error>
+            @if (
+              clientForm.get("name")?.invalid &&
+              (clientForm.get("name")?.touched || isSubmitted())
+            ) {
+              <div class="error-message">
+                @if (clientForm.get("name")?.errors?.["required"]) {
+                  <div>სავალდებულო ველი.</div>
+                }
+                @if (clientForm.get("name")?.errors?.["lettersNotAllowed"]) {
+                  <div>სახელი უნდა შეიცავდეს, ქართულ ან ლათინურ ასეოებს.</div>
+                }
+                @if (
+                  clientForm.get("name")?.errors?.["minlength"] ||
+                  clientForm.get("name")?.errors?.["maxlength"]
+                ) {
+                  <div>მინ 2 მაქს 50 ასო</div>
+                }
+              </div>
+            }
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>მობილურის ნომერი</mat-label>
+        <input formControlName="mobileNumber" matInput />
+        @if (
+          clientForm.get("mobileNumber")?.invalid &&
+          (clientForm.get("mobileNumber")?.touched || isSubmitted())
+        ) {
+          <mat-error>
+            <div class="error-message">
+              @if (clientForm.get("mobileNumber")?.errors?.["required"]) {
+                <div>სავალდებულო ველი.</div>
+              }
+              @if (clientForm.get("mobileNumber")?.errors?.["pattern"]) {
+                <div>5XXXXXXXX ფორმატი</div>
+              }
+            </div>
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>სქესი</mat-label>
+        <mat-select formControlName="gender">
+          <mat-option [value]="'male'">კაცი</mat-option>
+          <mat-option [value]="'female'">ქალი</mat-option>
+        </mat-select>
+        <mat-error>
+          @if (
+            clientForm.get("gender")?.invalid &&
+            (clientForm.get("gender")?.touched || isSubmitted())
+          ) {
+            <div class="error-message">სავალდებულო ველი.</div>
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>ფიქტიური ქვეყანა</mat-label>
+        <input formControlName="country" matInput />
+        @if (
+          clientForm.get("country")?.invalid &&
+          (clientForm.get("country")?.touched || isSubmitted())
+        ) {
+          <mat-error>
+            <div class="error-message">სავალდებულო ველი.</div>
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>ფიქტიური ქალაქი</mat-label>
+        <input formControlName="city" matInput />
+        @if (
+          clientForm.get("city")?.invalid &&
+          (clientForm.get("city")?.touched || isSubmitted())
+        ) {
+          <mat-error>
+            <div class="error-message">სავალდებულო ველი.</div>
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>ფიქტიური მისამართი</mat-label>
+        <input formControlName="address" matInput />
+        @if (
+          clientForm.get("address")?.invalid &&
+          (clientForm.get("address")?.touched || isSubmitted())
+        ) {
+          <mat-error>
+            <div class="error-message">სავალდებულო ველი.</div>
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <div class="checkbox">
+        <label class="label">
+          <mat-checkbox formControlName="isSameAddress" class="example-margin"
+            >ფაქტიური და ფიქტიური მისამართი იგივეა
+          </mat-checkbox>
+        </label>
+      </div>
+
+      @if (!clientForm.get("isSameAddress")?.value) {
+        <mat-form-field>
+          <mat-label>ფაქტიური ქვეყანა</mat-label>
+          <input
+            formControlName="realCountry"
+            matInput
+            [readonly]="clientForm.get('isSameAddress')?.value"
+          />
+          @if (
+            clientForm.get("realCountry")?.invalid &&
+            (clientForm.get("realCountry")?.touched || isSubmitted())
+          ) {
+            <mat-error>
+              <div class="error-message">სავალდებულო ველი.</div>
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>ფაქტიური ქალაქი</mat-label>
+          <input
+            formControlName="realCity"
+            matInput
+            [readonly]="clientForm.get('isSameAddress')?.value"
+          />
+          @if (
+            clientForm.get("realCity")?.invalid &&
+            (clientForm.get("realCity")?.touched || isSubmitted())
+          ) {
+            <mat-error>
+              <div class="error-message">სავალდებულო ველი.</div>
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>ფაქტიური მისამართი</mat-label>
+          <input
+            formControlName="realAddress"
+            matInput
+            [readonly]="clientForm.get('isSameAddress')?.value"
+          />
+          @if (
+            clientForm.get("realAddress")?.invalid &&
+            (clientForm.get("realAddress")?.touched || isSubmitted())
+          ) {
+            <mat-error>
+              <div class="error-message">სავალდებულო ველი.</div>
+            </mat-error>
+          }
+        </mat-form-field>
+      }
+    </div>
+    <button mat-flat-button (click)="addAccountsForm()" type="button">
+      Add Account
+    </button>
+    @if (accountsFormArray.controls.length) {
+      <div formArrayName="accounts">
+        @for (
+          accountForm of accountsFormArray.controls;
+          track accountForm;
+          let i = $index
+        ) {
+          <div [formGroupName]="i" class="user-form">
+            <mat-form-field>
+              <mat-label>ანგარიშის ნომერი</mat-label>
+              <input formControlName="accountNumber" matInput />
+              @if (
+                accountsFormArray.controls[i].get("accountNumber")?.invalid &&
+                (accountsFormArray.controls[i].get("accountNumber")?.touched ||
+                  isSubmitted())
+              ) {
+                <mat-error>
+                  @if (
+                    accountsFormArray.controls[i].get("accountNumber")
+                      ?.errors?.["required"]
+                  ) {
+                    <div class="error-message">სავალდებულო ველი.</div>
+                  }
+                  @if (
+                    accountsFormArray.controls[i].get("accountNumber")
+                      ?.errors?.["exists"]
+                  ) {
+                    <div class="error-message">
+                      ასეთი ანგარიში უკვე არსებობს.
+                    </div>
+                  }
+                  @if (
+                    accountsFormArray.controls[i].get("accountNumber")
+                      ?.errors?.["pattern"]
+                  ) {
+                    <div class="error-message">დასაშვებია მხოლოდ რიცხვი</div>
+                  }
+                </mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>კლიენტის ანგარიში</mat-label>
+              <input formControlName="clientAccountNumber" matInput />
+              @if (
+                accountsFormArray.controls[i].get("clientAccountNumber")
+                  ?.invalid &&
+                (accountsFormArray.controls[i].get("clientAccountNumber")
+                  ?.touched ||
+                  isSubmitted())
+              ) {
+                <mat-error>
+                  @if (
+                    accountsFormArray.controls[i].get("clientAccountNumber")
+                      ?.errors?.["required"]
+                  ) {
+                    <div class="error-message">სავალდებულო ველი.</div>
+                  }
+                  @if (
+                    accountsFormArray.controls[i].get("clientAccountNumber")
+                      ?.errors?.["exists"]
+                  ) {
+                    <div class="error-message">
+                      ასეთი ანგარიში უკვე არსებობს.
+                    </div>
+                  }
+                  @if (
+                    accountsFormArray.controls[i].get("clientAccountNumber")
+                      ?.errors?.["pattern"]
+                  ) {
+                    <div class="error-message">დასაშვებია მხოლოდ რიცხვი</div>
+                  }
+                </mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>ანგარიშის ტიპი</mat-label>
+              <mat-select formControlName="accountType">
+                <mat-option [value]="'current'">მიმდინარე</mat-option>
+                <mat-option [value]="'saving'">შემნახველი</mat-option>
+                <mat-option [value]="'funded'">დაგროვებითი</mat-option>
+              </mat-select>
+              <mat-error>
+                @if (
+                  accountsFormArray.controls[i].get("accountType")?.invalid &&
+                  (accountsFormArray.controls[i].get("accountType")?.touched ||
+                    isSubmitted())
+                ) {
+                  <div class="error-message">სავალდებულო ველი.</div>
+                }
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>ვალუტა</mat-label>
+              <mat-select formControlName="currency">
+                <mat-option [value]="'GEL'">GEL</mat-option>
+                <mat-option [value]="'USD'">USD</mat-option>
+                <mat-option [value]="'EUR'">EUR</mat-option>
+              </mat-select>
+              <mat-error>
+                @if (
+                  accountsFormArray.controls[i].get("currency")?.invalid &&
+                  (accountsFormArray.controls[i].get("currency")?.touched ||
+                    isSubmitted())
+                ) {
+                  <div class="error-message">სავალდებულო ველი.</div>
+                }
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>ანგარიშის სტატუსი</mat-label>
+              <mat-select formControlName="accountStatus">
+                <mat-option [value]="'active'">აქტიური</mat-option>
+                <mat-option [value]="'closed'">დახურული</mat-option>
+              </mat-select>
+              <mat-error>
+                @if (
+                  accountsFormArray.controls[i].get("accountStatus")?.invalid &&
+                  (accountsFormArray.controls[i].get("accountStatus")
+                    ?.touched ||
+                    isSubmitted())
+                ) {
+                  <div class="error-message">სავალდებულო ველი.</div>
+                }
+              </mat-error>
+            </mat-form-field>
+            <button mat-stroked-button type="button" (click)="removeAccount(i)">
+              ანგარიშის წაშლა
+            </button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+  <div class="form-buttons">
+    <button mat-stroked-button type="button" (click)="back()">გაუქმება</button>
+    <button mat-flat-button (click)="onSubmit()" type="submit">შენახვა</button>
+  </div>
+</form>

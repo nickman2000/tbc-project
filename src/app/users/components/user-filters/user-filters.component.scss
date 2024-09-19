@@ -1,0 +1,35 @@
+%flex {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+:host {
+  display: block;
+  margin: 24px;
+
+  .user-filters-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  form {
+    @extend %flex;
+    flex-wrap: wrap;
+
+    .search-buttons {
+      @extend %flex;
+    }
+  }
+
+  .extra-actions {
+    @extend %flex;
+  }
+}
+
+:host::ng-deep {
+  mat-form-field .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+}

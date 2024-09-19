@@ -1,0 +1,80 @@
+<div class="info-container">
+  <div class="user-field">
+    <div class="label">Name</div>
+    <div class="value">{{ data.user.name }}</div>
+  </div>
+  <div class="user-field">
+    <div class="label">Surname</div>
+    <div class="value">{{ data.user.surname }}</div>
+  </div>
+  <div class="user-field">
+    <div class="label">Gender</div>
+    <div class="value">{{ data.user.gender | titlecase }}</div>
+  </div>
+  <div class="user-field">
+    <div class="label">Personal Number</div>
+    <div class="value">{{ data.user.personalNumber }}</div>
+  </div>
+  <div class="user-field">
+    <div class="label">Client Number</div>
+    <div class="value">{{ data.user.clientNumber }}</div>
+  </div>
+  <div class="user-field">
+    <div class="label">Mobile Number</div>
+    <div class="value">{{ data.user.mobileNumber }}</div>
+  </div>
+  <div class="user-field">
+    <div class="label">Country</div>
+    <div class="value">{{ data.user.country }}</div>
+  </div>
+  <div class="user-field">
+    <div class="label">City</div>
+    <div class="value">{{ data.user.city }}</div>
+  </div>
+  <div class="user-field">
+    <div class="label">Address</div>
+    <div class="value">{{ data.user.address }}</div>
+  </div>
+  <div class="user-field">
+    <div class="label">Real Country</div>
+    <div class="value">{{ data.user.realCountry }}</div>
+  </div>
+  <div class="user-field">
+    <div class="label">Real City</div>
+    <div class="value">{{ data.user.realCity }}</div>
+  </div>
+  <div class="user-field">
+    <div class="label">Real Address</div>
+    <div class="value">{{ data.user.realAddress }}</div>
+  </div>
+  @for (account of data.user.accounts; track account.clientAccountNumber) {
+    <div class="user-account">
+      <div class="user-field">
+        <div class="label">Account Client Number</div>
+        <div class="value">{{ account.clientAccountNumber }}</div>
+      </div>
+      <div class="user-field">
+        <div class="label">Account Number</div>
+        <div class="value">{{ account.accountNumber }}</div>
+      </div>
+      <div class="user-field">
+        <div class="label">Account Status</div>
+        <div class="value">{{ account.accountStatus }}</div>
+      </div>
+      <div class="user-field">
+        <div class="label">Account Type</div>
+        <div class="value">{{ account.accountType }}</div>
+      </div>
+      <div class="user-field">
+        <div class="label">Currency</div>
+        <div class="value">{{ account.currency }}</div>
+      </div>
+    </div>
+  }
+  <div class="user-field">
+    <div class="label">Photo</div>
+    <div class="value photo">
+      <img [src]="data.user.photoUrl" alt="user photo" />
+    </div>
+  </div>
+</div>

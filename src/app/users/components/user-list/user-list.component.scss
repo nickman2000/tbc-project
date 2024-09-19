@@ -1,0 +1,24 @@
+mat-icon {
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.mat-mdc-table .mat-mdc-header-cell:last-of-type {
+  text-align: right;
+}
+
+tr[mat-row] {
+  cursor: pointer;
+  background: #fff;
+
+  &:hover {
+    background: #dcdcdc;
+  }
+
+  td:last-of-type {
+    text-align: right;
+  }
+}

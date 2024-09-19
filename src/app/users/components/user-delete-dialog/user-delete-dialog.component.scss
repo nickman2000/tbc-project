@@ -1,0 +1,17 @@
+.delete-message {
+  padding: 24px;
+  display: grid;
+  height: 100%;
+  place-items: center;
+
+  h2 {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .buttons-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+}

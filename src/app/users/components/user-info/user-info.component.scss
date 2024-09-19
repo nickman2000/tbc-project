@@ -1,0 +1,29 @@
+.info-container {
+  padding: 24px 32px;
+
+  .user-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .value {
+      &.photo {
+        margin-top: 12px;
+
+        img {
+          width: 150px;
+          height: 200px;
+        }
+      }
+    }
+
+    .label {
+      font-weight: bold;
+    }
+  }
+
+  .user-account {
+    border-block: 1px solid #141719;
+    padding-block: 12px;
+  }
+}

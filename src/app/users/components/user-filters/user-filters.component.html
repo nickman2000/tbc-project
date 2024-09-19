@@ -1,0 +1,39 @@
+<div class="user-filters-container">
+  <form [formGroup]="searchForm()">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input formControlName="name" matInput />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Surname</mat-label>
+      <input formControlName="surname" matInput />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Client Number</mat-label>
+      <input formControlName="clientNumber" matInput />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Personal Number</mat-label>
+      <input formControlName="personalNumber" matInput />
+    </mat-form-field>
+    <div class="search-buttons">
+      <button mat-flat-button (click)="filterForm()">Search</button>
+      <button mat-flat-button (click)="removeFilters()">Clear Filters</button>
+    </div>
+  </form>
+
+  <div class="extra-actions">
+    <mat-form-field>
+      <mat-label>Sorting</mat-label>
+      <mat-select
+        [(ngModel)]="userService.sortingMethod"
+        (ngModelChange)="sortTable()"
+      >
+        <mat-option value="asc">asc</mat-option>
+        <mat-option value="desc">desc</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-flat-button (click)="addUser()">Add User</button>
+  </div>
+</div>

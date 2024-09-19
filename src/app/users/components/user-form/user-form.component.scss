@@ -1,0 +1,25 @@
+form {
+  height: 100%;
+  padding: 2rem;
+
+  .form-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1.5rem;
+
+    .user-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: start;
+      margin-bottom: 16px;
+    }
+  }
+
+  .form-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+}

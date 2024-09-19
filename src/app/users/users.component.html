@@ -1,0 +1,9 @@
+@if (errorService.hasError()) {
+  <app-error-modal></app-error-modal>
+}
+@defer {
+  <app-user-filters [searchForm]="form"></app-user-filters>
+  <app-user-list></app-user-list>
+} @loading (minimum 0.3s) {
+  <span class="loader"></span>
+}
